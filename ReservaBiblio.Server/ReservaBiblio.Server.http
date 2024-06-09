@@ -1,0 +1,6 @@
+@ReservaBiblio.Server_HostAddress = http://localhost:5037
+
+GET {{ReservaBiblio.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
