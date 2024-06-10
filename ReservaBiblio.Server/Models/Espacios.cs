@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ReservaBiblio.Server.Models;
 
-public partial class Espacio
+public partial class Espacios
 {
     public int Id { get; set; }
 
@@ -15,5 +15,4 @@ public partial class Espacio
 
     public string? Imagen { get; set; }
 
-    public virtual ICollection<ReservasEspacios> ReservasEspacios { get; set; } = new List<ReservasEspacios>();
 }

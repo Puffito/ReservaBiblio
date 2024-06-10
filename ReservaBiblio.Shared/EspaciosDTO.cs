@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReservaBiblio.Shared
 {
-    public class EspacioDTO
+    public class EspaciosDTO
     {
         public int Id { get; set; }
 
@@ -18,6 +18,5 @@ namespace ReservaBiblio.Shared
 
         public string? Imagen { get; set; }
 
-        public virtual ICollection<ReservasEspaciosDTO> ReservasEspacios { get; set; } = new List<ReservasEspaciosDTO>();
     }
 }

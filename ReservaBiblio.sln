@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReservaBiblio.Server", "Res
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReservaBiblio.Shared", "ReservaBiblio.Shared\ReservaBiblio.Shared.csproj", "{FCF25673-0512-46AA-BCFD-5333E7793A7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReservaBiblio.Client", "ReservaBiblio.Client\ReservaBiblio.Client.csproj", "{5A79846E-0FD2-4588-A50D-4A128FEFE009}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FCF25673-0512-46AA-BCFD-5333E7793A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF25673-0512-46AA-BCFD-5333E7793A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF25673-0512-46AA-BCFD-5333E7793A7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A79846E-0FD2-4588-A50D-4A128FEFE009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A79846E-0FD2-4588-A50D-4A128FEFE009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A79846E-0FD2-4588-A50D-4A128FEFE009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A79846E-0FD2-4588-A50D-4A128FEFE009}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

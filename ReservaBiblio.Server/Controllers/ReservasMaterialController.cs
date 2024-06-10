@@ -3,17 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using ReservaBiblio.Server.Models;
 using ReservaBiblio.Shared;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace ReservaBiblio.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservasEspaciosController : ControllerBase
+    public class ReservasMaterialController : ControllerBase
     {
         private readonly ReservasDbContext _dbContext;
 
-        public ReservasEspaciosController(ReservasDbContext dbContext)
+        public ReservasMaterialController(ReservasDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -22,25 +21,25 @@ namespace ReservaBiblio.Server.Controllers
         [Route("Lista")]
         public async Task<IActionResult> Lista()
         {
-            var responseApi = new ResponseAPI<List<ReservasEspaciosDTO>>();
-            var listaReservasEspaciosDTO = new List<ReservasEspaciosDTO>();
+            var responseApi = new ResponseAPI<List<ReservasMaterialDTO>>();
+            var listaReservasMaterialDTO = new List<ReservasMaterialDTO>();
 
             try
             {
-                foreach (var item in await _dbContext.ReservasEspacios.ToListAsync())
+                foreach (var item in await _dbContext.ReservasMaterial.ToListAsync())
                 {
-                    listaReservasEspaciosDTO.Add(new ReservasEspaciosDTO
+                    listaReservasMaterialDTO.Add(new ReservasMaterialDTO
                     {
                         Id = item.Id,
                         ProfesorId = item.ProfesorId,
-                        EspacioId = item.EspacioId,
+                        MaterialId = item.MaterialId,
                         Dia = item.Dia,
                         HoraInicio = item.HoraInicio,
                         HoraFin = item.HoraFin
                     });
                 }
                 responseApi.EsCorrecto = true;
-                responseApi.Valor = listaReservasEspaciosDTO;
+                responseApi.Valor = listaReservasMaterialDTO;
             }
             catch (Exception ex)
             {
@@ -54,23 +53,23 @@ namespace ReservaBiblio.Server.Controllers
         [Route("Buscar/{Id}")]
         public async Task<IActionResult> Buscar(int Id)
         {
-            var responseApi = new ResponseAPI<ReservasEspaciosDTO>();
-            var ReservasEspaciosDTO = new ReservasEspaciosDTO();
+            var responseApi = new ResponseAPI<ReservasMaterialDTO>();
+            var ReservasMaterialDTO = new ReservasMaterialDTO();
 
             try
             {
-                var dbReservaEspacio = await _dbContext.ReservasEspacios.FirstOrDefaultAsync(x => x.Id == Id);
-                if (dbReservaEspacio != null)
+                var dbReservaMaterial = await _dbContext.ReservasMaterial.FirstOrDefaultAsync(x => x.Id == Id);
+                if (dbReservaMaterial != null)
                 {
-                    ReservasEspaciosDTO.Id =dbReservaEspacio.Id;
-                    ReservasEspaciosDTO.ProfesorId = dbReservaEspacio.ProfesorId;
-                    ReservasEspaciosDTO.EspacioId = dbReservaEspacio.EspacioId;
-                    ReservasEspaciosDTO.Dia = dbReservaEspacio.Dia;
-                    ReservasEspaciosDTO.HoraInicio = dbReservaEspacio.HoraInicio;
-                    ReservasEspaciosDTO.HoraFin = dbReservaEspacio.HoraFin;
+                    ReservasMaterialDTO.Id = dbReservaMaterial.Id;
+                    ReservasMaterialDTO.ProfesorId = dbReservaMaterial.ProfesorId;
+                    ReservasMaterialDTO.MaterialId = dbReservaMaterial.MaterialId;
+                    ReservasMaterialDTO.Dia = dbReservaMaterial.Dia;
+                    ReservasMaterialDTO.HoraInicio = dbReservaMaterial.HoraInicio;
+                    ReservasMaterialDTO.HoraFin = dbReservaMaterial.HoraFin;
 
                     responseApi.EsCorrecto = true;
-                    responseApi.Valor = ReservasEspaciosDTO;
+                    responseApi.Valor = ReservasMaterialDTO;
                 }
                 else
                 {

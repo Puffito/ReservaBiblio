@@ -15,21 +15,21 @@ public partial class ReservasDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Espacio> Espacios { get; set; }
+    public virtual DbSet<Espacios> Espacios { get; set; }
 
-    public virtual DbSet<Material> Materials { get; set; }
+    public virtual DbSet<Material> Material { get; set; }
 
     public virtual DbSet<Profesores> Profesores { get; set; }
 
     public virtual DbSet<ReservasEspacios> ReservasEspacios { get; set; }
 
-    public virtual DbSet<ReservasMaterial> ReservasMaterials { get; set; }
+    public virtual DbSet<ReservasMaterial> ReservasMaterial { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Espacio>(entity =>
+        modelBuilder.Entity<Espacios>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Espacios__3213E83F7D3AC151");
 
@@ -98,11 +98,6 @@ public partial class ReservasDbContext : DbContext
             entity.Property(e => e.HoraInicio).HasColumnName("hora_inicio");
             entity.Property(e => e.ProfesorId).HasColumnName("profesor_id");
 
-            entity.HasOne(d => d.Espacio).WithMany(p => p.ReservasEspacios)
-                .HasForeignKey(d => d.EspacioId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ReservasE__espac__5165187F");
-
             entity.HasOne(d => d.Profesor).WithMany(p => p.ReservasEspacios)
                 .HasForeignKey(d => d.ProfesorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -121,11 +116,6 @@ public partial class ReservasDbContext : DbContext
             entity.Property(e => e.HoraInicio).HasColumnName("hora_inicio");
             entity.Property(e => e.MaterialId).HasColumnName("material_id");
             entity.Property(e => e.ProfesorId).HasColumnName("profesor_id");
-
-            entity.HasOne(d => d.Material).WithMany(p => p.ReservasMaterials)
-                .HasForeignKey(d => d.MaterialId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ReservasM__mater__5535A963");
 
             entity.HasOne(d => d.Profesor).WithMany(p => p.ReservasMaterials)
                 .HasForeignKey(d => d.ProfesorId)

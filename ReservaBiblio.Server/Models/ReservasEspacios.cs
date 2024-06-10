@@ -17,7 +17,7 @@ public partial class ReservasEspacios
 
     public int HoraFin { get; set; }
 
-    public virtual Espacio Espacio { get; set; } = null!;
+    public virtual Espacios Espacio { get; set; } = null!;
 
     public virtual Profesores Profesor { get; set; } = null!;
 }

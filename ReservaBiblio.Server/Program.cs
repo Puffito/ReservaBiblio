@@ -15,6 +15,15 @@ builder.Services.AddDbContext<ReservasDbContext>(opciones =>
     opciones.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL"));
 });
 
+builder.Services.AddCors(opciones =>
+{
+    opciones.AddPolicy("nuevaPolitica", app =>
+    {
+        app.AllowAnyHeader();
+        app.AllowAnyMethod();
+        app.AllowAnyOrigin();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +32,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseAuthorization();
 

@@ -20,7 +20,7 @@ namespace ReservaBiblio.Shared
 
         public int HoraFin { get; set; }
 
-        public virtual EspacioDTO Espacio { get; set; } = null!;
+        public virtual EspaciosDTO Espacio { get; set; } = null!;
 
         public virtual ProfesoresDTO Profesor { get; set; } = null!;
     }

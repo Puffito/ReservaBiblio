@@ -15,5 +15,4 @@ public partial class Material
 
     public string? Imagen { get; set; }
 
-    public virtual ICollection<ReservasMaterial> ReservasMaterials { get; set; } = new List<ReservasMaterial>();
 }

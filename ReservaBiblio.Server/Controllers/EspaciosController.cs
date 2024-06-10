@@ -8,11 +8,11 @@ namespace ReservaBiblio.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MaterialController : ControllerBase
+    public class EspaciosController : ControllerBase
     {
         private readonly ReservasDbContext _dbContext;
 
-        public MaterialController(ReservasDbContext dbContext)
+        public EspaciosController(ReservasDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -21,14 +21,14 @@ namespace ReservaBiblio.Server.Controllers
         [Route("Lista")]
         public async Task<IActionResult> Lista()
         {
-            var responseApi = new ResponseAPI<List<MaterialDTO>>();
-            var listaMaterialDTO = new List<MaterialDTO>();
+            var responseApi = new ResponseAPI<List<EspaciosDTO>>();
+            var listaEspaciosDTO = new List<EspaciosDTO>();
 
             try
             {
-                foreach (var item in await _dbContext.Material.ToListAsync())
+                foreach (var item in await _dbContext.Espacios.ToListAsync())
                 {
-                    listaMaterialDTO.Add(new MaterialDTO
+                    listaEspaciosDTO.Add(new EspaciosDTO
                     {
                         Id = item.Id,
                         Nombre = item.Nombre,
@@ -38,7 +38,7 @@ namespace ReservaBiblio.Server.Controllers
                     });
                 }
                 responseApi.EsCorrecto = true;
-                responseApi.Valor = listaMaterialDTO;
+                responseApi.Valor = listaEspaciosDTO;
             }
             catch (Exception ex)
             {
@@ -52,18 +52,18 @@ namespace ReservaBiblio.Server.Controllers
         [Route("Buscar/{Clave}")]
         public async Task<IActionResult> Buscar(string Clave)
         {
-            var responseApi = new ResponseAPI<MaterialDTO>();
-            var MaterialDTO = new MaterialDTO();
+            var responseApi = new ResponseAPI<EspaciosDTO>();
+            var EspacioDTO = new EspaciosDTO();
 
             try
             {
-                var dbMaterial = await _dbContext.Material.FirstOrDefaultAsync(x => x.Clave == Clave);
-                if (dbMaterial != null)
+                var dbEspacio = await _dbContext.Espacios.FirstOrDefaultAsync(x => x.Clave == Clave);
+                if (dbEspacio != null)
                 {
 
 
                     responseApi.EsCorrecto = true;
-                    responseApi.Valor = MaterialDTO;
+                    responseApi.Valor = EspacioDTO;
                 }
                 else
                 {

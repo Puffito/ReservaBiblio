@@ -1,5 +1,4 @@
-﻿using ReservaBiblio.Server.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +18,5 @@ namespace ReservaBiblio.Shared
 
         public string? Imagen { get; set; }
 
-        public virtual ICollection<ReservasMaterial> ReservasMaterials { get; set; } = new List<ReservasMaterial>();
     }
 }
