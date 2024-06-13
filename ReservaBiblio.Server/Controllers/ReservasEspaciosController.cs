@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReservaBiblio.Server.Models;
 using ReservaBiblio.Shared;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace ReservaBiblio.Server.Controllers
 {
@@ -62,7 +60,7 @@ namespace ReservaBiblio.Server.Controllers
                 var dbReservaEspacio = await _dbContext.ReservasEspacios.FirstOrDefaultAsync(x => x.Id == Id);
                 if (dbReservaEspacio != null)
                 {
-                    ReservasEspaciosDTO.Id =dbReservaEspacio.Id;
+                    ReservasEspaciosDTO.Id = dbReservaEspacio.Id;
                     ReservasEspaciosDTO.ProfesorId = dbReservaEspacio.ProfesorId;
                     ReservasEspaciosDTO.EspacioId = dbReservaEspacio.EspacioId;
                     ReservasEspaciosDTO.Dia = dbReservaEspacio.Dia;
