@@ -5,11 +5,3 @@ if (newReservation != null) {
         location.href = "/novaReserva"
     });
 }
-
-let editAccount = document.getElementById("editarCuenta");
-
-if (editAccount != null) {
-    editAccount.addEventListener("click", (e) => {
-        location.href = "/editarConta"
-    });
-}
