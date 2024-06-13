@@ -3,18 +3,18 @@ using System.Net.Http.Json;
 
 namespace ReservaBiblio.Client.Services
 {
-    public class ProfesoresService : IProfesoresService
+    public class ReservasEspaciosService : IReservasEspaciosService
     {
         private readonly HttpClient _http;
 
-        public ProfesoresService(HttpClient http)
+        public ReservasEspaciosService(HttpClient http)
         {
             _http = http;
         }
 
-        public async Task<ProfesoresDTO> Buscar(string Correo)
+        public async Task<ReservasEspaciosDTO> Buscar(int Id)
         {
-            var result = await _http.GetFromJsonAsync<ResponseAPI<ProfesoresDTO>>("api/Profesores/Buscar/{Correo}");
+            var result = await _http.GetFromJsonAsync<ResponseAPI<ReservasEspaciosDTO>>("api/ReservasEspacios/Buscar/{Id}");
 
             if (result!.EsCorrecto)
             {
@@ -26,9 +26,9 @@ namespace ReservaBiblio.Client.Services
             }
         }
 
-        public async Task<List<ProfesoresDTO>> Lista()
+        public async Task<List<ReservasEspaciosDTO>> Lista()
         {
-            var result = await _http.GetFromJsonAsync<ResponseAPI<List<ProfesoresDTO>>>("api/Profesores/Lista");
+            var result = await _http.GetFromJsonAsync<ResponseAPI<List<ReservasEspaciosDTO>>>("api/ReservasEspacios/Lista");
 
             if (result!.EsCorrecto)
             {
@@ -39,14 +39,14 @@ namespace ReservaBiblio.Client.Services
                 throw new Exception(result.Mensaje);
             }
         }
-        public async Task<string> Guardar(ProfesoresDTO Profesor)
+        public async Task<int> Guardar(ReservasEspaciosDTO ReservaEspacios)
         {
-            var result = await _http.PostAsJsonAsync("api/Profesores/Guardar", Profesor);
+            var result = await _http.PostAsJsonAsync("api/ReservasEspacios/Guardar", ReservaEspacios);
             var response = await result.Content.ReadFromJsonAsync<ResponseAPI<int>>();
 
             if (response!.EsCorrecto)
             {
-                return response.Mensaje!;
+                return response.Valor!;
             }
             else
             {
@@ -54,14 +54,14 @@ namespace ReservaBiblio.Client.Services
             }
         }
 
-        public async Task<string> Editar(ProfesoresDTO Profesor)
+        public async Task<int> Editar(ReservasEspaciosDTO ReservaEspacios)
         {
-            var result = await _http.PutAsJsonAsync($"api/Profesores/Editar/{Profesor.Correo}", Profesor);
+            var result = await _http.PutAsJsonAsync($"api/ReservasEspacios/Editar/{ReservaEspacios.Id}", ReservaEspacios);
             var response = await result.Content.ReadFromJsonAsync<ResponseAPI<int>>();
 
             if (response!.EsCorrecto)
             {
-                return response.Mensaje!;
+                return response.Valor!;
             }
             else
             {
@@ -69,9 +69,9 @@ namespace ReservaBiblio.Client.Services
             }
         }
 
-        public async Task<bool> Eliminar(string Correo)
+        public async Task<bool> Eliminar(int Id)
         {
-            var result = await _http.DeleteAsync($"api/Profesores/Eliminar/{Correo}");
+            var result = await _http.DeleteAsync($"api/ReservasEspacios/Eliminar/{Id}");
             var response = await result.Content.ReadFromJsonAsync<ResponseAPI<int>>();
 
             if (response!.EsCorrecto)
