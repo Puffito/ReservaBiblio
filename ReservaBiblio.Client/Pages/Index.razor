@@ -1,0 +1,47 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+@layout Login;
+
+<div class="all">
+    <div class="buttonsHeader">
+        <div class="button" id="loginButton" onclick="changeToLoginForm()">
+            <h2>Login</h2>
+        </div>
+        <div class="button buttonOn" id="registroButton" onclick="changeToRegisterForm()">
+            <h2>Rexistro</h2>
+        </div>
+    </div>
+    <div class="body">
+        <div class="formTitle">
+            <h1 id="formTitle">Rexístrese</h1>
+        </div>
+        <form method="post" action="/register" id="registro">
+            <label for="nombre">Nome</label>
+            <input type="text" class="form-control" name="nombre">
+            <label for="departamento">Departamento</label>
+            <input type="text" class="form-control" name="departamento">
+            <label for="correo">Correo</label>
+            <input type="email" class="form-control" name="correo">
+            <label for="contrasena">Contrasinal</label>
+            <input type="password" class="form-control" name="contrasena">
+            <label for="confirmarContraseña">Confirmar contrasinal</label>
+            <input type="password" class="form-control" name="confirmarContraseña">
+            <div class="formSubmit">
+                <button type="button" name="submit" class="btn btn-background">Rexistrarse</button>
+            </div>
+        </form>
+        <form method="post" action="/login" id="login" class="oculto">
+            <label for="correo">Correo</label>
+            <input type="email" class="form-control" name="correo">
+            <label for="contrasena">Contrasinal</label>
+            <input type="password" class="form-control" name="contrasena">
+            <div class="formSubmit">
+                <button type="button" name="submit" class="btn btn-background">Iniciar sesión</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/scripts/Login.js"></script>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ReservaBiblio.Server.Models;
+﻿namespace ReservaBiblio.Server.Models;
 
 public partial class Profesores
 {

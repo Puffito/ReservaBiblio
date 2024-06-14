@@ -1,0 +1,25 @@
+﻿@page "/editarConta"
+
+@layout Navbar
+
+<h1 class="title">
+    Editar Conta
+   </h1>
+   <div class="body">
+   <form method="post" action="" id="editAccount" class="editAccount">
+     <label for="nombre">Nome</label>
+     <input type="text" class="form-control" name="nombre" />
+     <label for="departamento">Departamento</label>
+     <input type="text" class="form-control" name="departamento" />
+     <label for="email">Email</label>
+     <input type="email" class="form-control" name="email" />
+     <div class="formSubmit">
+       <button type="button" name="submit" class="btn btn-background">
+         Gardar
+       </button>
+            <button type="button" class="cancel-btn btn btn-danger" id="CancelarEditarCuenta">Cancelar</button>
+     </div>
+   </form>
+   </div>
+
+<script src="/scripts/CancelarEditarCuenta.js"></script>

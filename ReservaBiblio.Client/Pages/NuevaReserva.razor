@@ -1,0 +1,60 @@
+﻿@page "/novaReserva"
+
+@layout Navbar
+
+<h1 class="title">
+    Nova Reserva
+</h1>
+<div class="body">
+    <form method="post" action="" id="newReservationForm" class="newReservationForm">
+        <div class="col-auto my-1">
+            <label for="nombre">Espazo</label>
+            <select class="form-select" aria-label="Default select example" id="nombre">
+                <option selected>Biblioteca: espazo maker</option>
+                <option value="1">Biblioteca: planta de arriba</option>
+                <option value="2">Salón de actos</option>
+                <option value="3">Taller de informática 25</option>
+            </select>
+        </div>
+        <label for="descripcion">Descripción</label>
+        <input type="text" class="form-control" name="descripcion" />
+        <label for="fecha">Fecha</label>
+        <input type="date" class="form-control" name="fecha" />
+        <div class="col-auto my-1">
+            <label for="hora_inicio">Hora inicio</label>
+            <select class="form-select" aria-label="Default select example" id="hora_inicio">
+                <option selected>9:00</option>
+                <option value="1">9:50</option>
+                <option value="2">10:40</option>
+                <option value="3">11:30</option>
+                <option value="4">12:00</option>
+                <option value="5">12:50</option>
+                <option value="6">13:40</option>
+                <option value="7">14:30</option>
+                <option value="8">15:20</option>
+            </select>
+        </div>
+        <div class="col-auto my-1">
+            <label for="hora_fin">Hora fin</label>
+            <select class="form-select" aria-label="Default select example" id="hora_fin">
+                <option selected>9:00</option>
+                <option value="1">9:50</option>
+                <option value="2">10:40</option>
+                <option value="3">11:30</option>
+                <option value="4">12:00</option>
+                <option value="5">12:50</option>
+                <option value="6">13:40</option>
+                <option value="7">14:30</option>
+                <option value="8">15:20</option>
+            </select>
+        </div>
+        <div class="formSubmit">
+            <button type="button" name="submit" class="btn btn-background">
+                Reservar
+            </button>
+            <button type="button" class="cancel-btn btn btn-danger" id="CancelarNuevaReserva">Cancelar</button>
+        </div>
+    </form>
+</div>
+
+<script src="/scripts/CancelarNuevaReserva.js"></script>

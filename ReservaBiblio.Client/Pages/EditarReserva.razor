@@ -1,0 +1,61 @@
+﻿@page "/editarReserva"
+
+@layout Navbar
+
+<h1 class="title">Editar Reserva</h1>
+<div class="body">
+    <form method="post"
+          action=""
+          id="newReservationForm"
+          class="newReservationForm">
+        <label for="nombre">Nome</label>
+        <input type="text" class="form-control" name="nombre" />
+        <label for="descripcion">Descripción</label>
+        <input type="text" class="form-control" name="descripcion" />
+        <label for="fecha">Fecha</label>
+        <input type="date" class="form-control" name="fecha" />
+        <div class="col-auto my-1">
+            <label for="hora_inicio">Hora inicio</label>
+            <select class="form-select"
+                    aria-label="Default select example"
+                    id="hora_inicio">
+                <option selected>9:00</option>
+                <option value="1">9:50</option>
+                <option value="2">10:40</option>
+                <option value="3">11:30</option>
+                <option value="4">12:00</option>
+                <option value="5">12:50</option>
+                <option value="6">13:40</option>
+                <option value="7">14:30</option>
+                <option value="8">15:20</option>
+            </select>
+        </div>
+        <div class="col-auto my-1">
+            <label for="hora_fin">Hora fin</label>
+            <select class="form-select"
+                    aria-label="Default select example"
+                    id="hora_fin">
+                <option selected>9:00</option>
+                <option value="1">9:50</option>
+                <option value="2">10:40</option>
+                <option value="3">11:30</option>
+                <option value="4">12:00</option>
+                <option value="5">12:50</option>
+                <option value="6">13:40</option>
+                <option value="7">14:30</option>
+                <option value="8">15:20</option>
+            </select>
+        </div>
+        <div class="formSubmit">
+            <button type="button" name="submit" class="btn btn-background">
+                Gardar
+            </button>
+            <button type="button" class="cancel-btn btn btn-danger">
+                Cancelar Reserva
+            </button>
+            <button type="button" class="cancel-btn btn btn-danger">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>

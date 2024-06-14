@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReservaBiblio.Server.Models;
 using ReservaBiblio.Shared;
-using Microsoft.EntityFrameworkCore;
 
 namespace ReservaBiblio.Server.Controllers
 {
@@ -40,7 +39,8 @@ namespace ReservaBiblio.Server.Controllers
                 }
                 responseApi.EsCorrecto = true;
                 responseApi.Valor = listaProfesoresDTO;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 responseApi.EsCorrecto = false;
                 responseApi.Mensaje = ex.Message;
@@ -61,7 +61,7 @@ namespace ReservaBiblio.Server.Controllers
                 var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(x => x.Id == Id);
                 if (dbProfesor != null)
                 {
-                    
+
 
                     responseApi.EsCorrecto = true;
                     responseApi.Valor = ProfesorDTO;
@@ -154,7 +154,7 @@ namespace ReservaBiblio.Server.Controllers
             catch (Exception ex)
             {
                 responseApi.EsCorrecto = false;
-                responseApi.Mensaje = ex.Message ;
+                responseApi.Mensaje = ex.Message;
             }
             return Ok(responseApi);
 
@@ -194,5 +194,5 @@ namespace ReservaBiblio.Server.Controllers
 
         }
     }
-    
+
 }

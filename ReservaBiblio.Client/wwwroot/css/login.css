@@ -1,0 +1,91 @@
+﻿body {
+    background-color: #5E5C9E !important;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#app {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.all {
+    width: 95%;
+    background-color: white;
+}
+
+.body {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .body form {
+        margin-top: 5%;
+        width: 50%;
+        margin-bottom: 5%;
+    }
+
+.buttonsHeader {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    display: flex;
+}
+
+.button {
+    width: 50%;
+    background-color: #93cce9 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+}
+
+.buttonOn {
+    background-color: white !important;
+    color: black;
+    cursor: auto !important;
+}
+
+.formSubmit {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.formTitle {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.oculto {
+    display: none;
+}
+
+.btn-background {
+    --bs-btn-color: #fff !important;
+    --bs-btn-bg: #93cce9 !important;
+    --bs-btn-border-color: #93cce9 !important;
+    --bs-btn-hover-color: #fff !important;
+    --bs-btn-hover-bg: #86c3e1 !important;
+    --bs-btn-hover-border-color: #93cce9 !important;
+    --bs-btn-focus-shadow-rgb: #93cce9 !important;
+    --bs-btn-active-color: #93cce9 !important;
+    --bs-btn-active-bg: #93cce9 !important;
+    --bs-btn-active-border-color: #93cce9 !important;
+    --bs-btn-active-shadow: #93cce9 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    --bs-btn-disabled-color: #93cce9 !important;
+    --bs-btn-disabled-bg: #93cce9 !important;
+    --bs-btn-disabled-border-color: #93cce9 !important;
+}
