@@ -1,6 +1,7 @@
 ﻿@page "/conta"
 
 @layout Navbar
+@inject NavigationManager NavigationManager
 
 <h1 class="title">
         Conta
@@ -16,10 +17,15 @@
                 <p class="user">Docente</p>
             </div>
           <div class="formSubmit">
-            <button type="button" name="submit" class="edit-btn btn btn-background" id="editarCuenta">
+        <button type="button" name="submit" class="edit-btn btn btn-background" @onclick="EditarCuenta">
               Editar
             </button>
           </div>
         </div>
 
-<script src="/scripts/EditarCuenta.js"></script>
+@code {
+    private void EditarCuenta()
+    {
+        NavigationManager.NavigateTo("/editarConta");
+    }
+}

@@ -1,15 +1,21 @@
 ﻿@page "/reservas"
 
 @layout Navbar
+@inject NavigationManager NavigationManager
 
 <h1 class="title">Reservas</h1>
 <div class="buttons">
     <!-- Sacar los botones por consultas php -->
-    <div class="basicButton" id="editarReserva">
+    <div class="basicButton" @onclick="EditarReserva">
         <p>Biblioteca: espacio maker</p>
         <p>20/02/24 9:50 - 11:30</p>
         <p>Activa</p>
     </div>
 </div>
 
-<script src="/scripts/EditarReserva.js"></script>
+@code {
+    private void EditarReserva()
+    {
+        NavigationManager.NavigateTo("/editarReserva");
+    }
+}

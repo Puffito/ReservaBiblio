@@ -1,6 +1,7 @@
 ﻿@page "/novaReserva"
 
 @layout Navbar
+@inject NavigationManager NavigationManager
 
 <h1 class="title">
     Nova Reserva
@@ -52,9 +53,14 @@
             <button type="button" name="submit" class="btn btn-background">
                 Reservar
             </button>
-            <button type="button" class="cancel-btn btn btn-danger" id="CancelarNuevaReserva">Cancelar</button>
+            <button type="button" class="cancel-btn btn btn-danger" @onclick="CancelarNuevaReserva">Cancelar</button>
         </div>
     </form>
 </div>
 
-<script src="/scripts/CancelarNuevaReserva.js"></script>
+@code {
+    private void CancelarNuevaReserva()
+    {
+        NavigationManager.NavigateTo("/calendario");
+    }
+}
