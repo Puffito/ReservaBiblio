@@ -1,0 +1,97 @@
+﻿@page "/profesor"
+@page "/profesor/{idProfesorEditar:int}"
+
+@using ReservaBiblio.Shared;
+@using ReservaBiblio.Client.Services;
+
+@inject IProfesoresService profesorService;
+@inject IReservasMaterialService reservaMaterialService;
+@inject IReservasEspaciosService reservaEspaciosService;
+@inject NavigationManager navegacion;
+
+
+<h3>@titulo</h3>
+
+<EditForm Model="profesor" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre Completo</label>
+        <InputText class="form-control" @bind-Value="profesor.Nombre"></InputText>
+        <ValidationMessage For="@(() => profesor.Nombre)"></ValidationMessage>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Correo</label>
+        <InputText class="form-control" @bind-Value="profesor.Correo"></InputText>
+        <ValidationMessage For="@(() => profesor.Correo)"></ValidationMessage>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Departamento</label>
+        <InputText class="form-control" @bind-Value="profesor.Departamento"></InputText>
+        <ValidationMessage For="@(() => profesor.Departamento)"></ValidationMessage>
+    </div>
+
+@*     <div class="mb-3">
+        <label class="form-label">Departamento</label>
+        <InputSelect class="form-select" @bind-Value="profesor.Departamento">
+            <option value="0">-- Seleccionar --</option>
+            @foreach (var item in listaDepartamento)
+            {
+                <option value="@item.IdDepartamento">@item.Nombre</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => profesor.IdDepartamento)"></ValidationMessage>
+    </div> *@
+
+    <button class="btn btn-primary" type="submit">
+        @btnTexto
+    </button>
+
+    <a class="btn btn-warning" href="profesors">Volver</a>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int idProfesorEditar { get; set; } = 0;
+
+
+    string titulo = string.Empty;
+    string btnTexto = string.Empty;
+
+    ProfesoresDTO profesor = new ProfesoresDTO();
+    List<ReservasEspaciosDTO> listaEspacios = new List<ReservasEspaciosDTO>();
+    List<ReservasMaterialDTO> listaMateriales = new List<ReservasMaterialDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(idProfesorEditar != 0)
+        {
+            profesor = await profesorService.Buscar(idProfesorEditar);
+            btnTexto = "Actualizar Profesor";
+            titulo = "Editar Profesor";
+        }
+        else
+        {
+            btnTexto = "Guardar Profesor";
+            titulo = "Nuevo Profesor";
+        }
+        listaEspacios = await reservaEspaciosService.Lista();
+        listaMateriales = await reservaMaterialService.Lista();
+    }
+
+    private async Task OnValidSubmit()
+    {
+        int idDevuelto = 0;
+        if (idProfesorEditar == 0)
+            idDevuelto = await profesorService.Guardar(profesor);
+        else
+            idDevuelto = await profesorService.Editar(profesor);
+
+
+        if (idDevuelto != 0)
+            navegacion.NavigateTo("/profesores");
+
+    }
+
+
+}

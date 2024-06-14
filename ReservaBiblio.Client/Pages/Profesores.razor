@@ -1,0 +1,85 @@
+﻿@page "/profesores"
+
+@using ReservaBiblio.Shared;
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using ReservaBiblio.Client.Services;
+
+@inject SweetAlertService Swal;
+@inject IProfesoresService profesorService;
+
+<h3>Profesores</h3>
+
+<a class="btn btn-success btn-sm mb-3" href="home">Volver a casa</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre completo</th>
+            <th>Correo</th>
+            <th>Departamento</th>
+            <th>Rango</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if(listaProfesores == null)
+        {
+            <tr>
+                <td colspan="5" align="center">
+                    <img style="width:50px" src="https://media.tenor.com/G7LfW0O5qb8AAAAi/loading-gif.gif"/>
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in listaProfesores)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Correo</td>
+                    <td>@item.Departamento</td>
+                    <td>@item.RangoAdministrador</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="profesor/@item.Id">
+                            <i class="oi oi-pencil"></i>
+                        </a>
+                        <button type="button" class="btn btn-danger btnsm ms-2" @onclick="(()=> Eliminar(item.Id))">
+                            <i class="oi oi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+@code {
+
+    List<ProfesoresDTO>? listaProfesores = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaProfesores = await profesorService.Lista();
+    }
+
+    private async Task Eliminar(int Id)
+    {
+        var resultado = await Swal.FireAsync(new SweetAlertOptions
+        {
+                Title = "Eliminar Profesor",
+                Text = "¿Deseas eliminar a este profesor?",
+                Icon = SweetAlertIcon.Question,
+                ShowCancelButton = true
+        });
+
+        if (resultado.IsConfirmed)
+        {
+            var eliminado = await profesorService.Eliminar(Id);
+
+            if (eliminado)
+                listaProfesores = listaProfesores!.FindAll(e => e.Id != Id);
+        }
+    }
+
+}

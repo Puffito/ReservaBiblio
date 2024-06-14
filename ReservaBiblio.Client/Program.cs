@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using ReservaBiblio.Client;
 using ReservaBiblio.Client.Services;
+using CurrieTechnologies.Razor.SweetAlert2;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -15,5 +16,6 @@ builder.Services.AddScoped<IEspaciosService, EspaciosService>();
 builder.Services.AddScoped<IReservasEspaciosService, ReservasEspaciosService>();
 builder.Services.AddScoped<IReservasMaterialService, ReservasMaterialService>();
 
+builder.Services.AddSweetAlert2();
 
 await builder.Build().RunAsync();

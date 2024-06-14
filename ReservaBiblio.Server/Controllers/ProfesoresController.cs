@@ -50,15 +50,15 @@ namespace ReservaBiblio.Server.Controllers
         }
 
         [HttpGet]
-        [Route("Buscar/{Correo}")]
-        public async Task<IActionResult> Buscar(string Correo)
+        [Route("Buscar/{Id}")]
+        public async Task<IActionResult> Buscar(int Id)
         {
             var responseApi = new ResponseAPI<ProfesoresDTO>();
             var ProfesorDTO = new ProfesoresDTO();
 
             try
             {
-                var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(x => x.Correo == Correo);
+                var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(x => x.Id == Id);
                 if (dbProfesor != null)
                 {
                     
@@ -120,15 +120,15 @@ namespace ReservaBiblio.Server.Controllers
         }
 
         [HttpPut]
-        [Route("Editar/{Correo}")]
-        public async Task<IActionResult> Editar(ProfesoresDTO profesor, string Correo)
+        [Route("Editar/{Id}")]
+        public async Task<IActionResult> Editar(ProfesoresDTO profesor, int Id)
         {
             var responseApi = new ResponseAPI<string>();
 
             try
             {
 
-                var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(e=>e.Correo == Correo);
+                var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(e=>e.Id == Id);
 
                 if (dbProfesor != null)
                 {
@@ -162,14 +162,14 @@ namespace ReservaBiblio.Server.Controllers
 
         [HttpDelete]
         [Route("Eliminar/{Correo}")]
-        public async Task<IActionResult> Eliminar(string Correo)
+        public async Task<IActionResult> Eliminar(int Id)
         {
             var responseApi = new ResponseAPI<string>();
 
             try
             {
 
-                var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(e => e.Correo == Correo);
+                var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(e => e.Id == Id);
 
                 if (dbProfesor != null)
                 {

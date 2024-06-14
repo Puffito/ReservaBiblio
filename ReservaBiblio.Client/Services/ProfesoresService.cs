@@ -12,9 +12,9 @@ namespace ReservaBiblio.Client.Services
             _http = http;
         }
 
-        public async Task<ProfesoresDTO> Buscar(string Correo)
+        public async Task<ProfesoresDTO> Buscar(int Id)
         {
-            var result = await _http.GetFromJsonAsync<ResponseAPI<ProfesoresDTO>>("api/Profesores/Buscar/{Correo}");
+            var result = await _http.GetFromJsonAsync<ResponseAPI<ProfesoresDTO>>("api/Profesores/Buscar/{Id}");
 
             if (result!.EsCorrecto)
             {
@@ -39,14 +39,14 @@ namespace ReservaBiblio.Client.Services
                 throw new Exception(result.Mensaje);
             }
         }
-        public async Task<string> Guardar(ProfesoresDTO Profesor)
+        public async Task<int> Guardar(ProfesoresDTO Profesor)
         {
             var result = await _http.PostAsJsonAsync("api/Profesores/Guardar", Profesor);
             var response = await result.Content.ReadFromJsonAsync<ResponseAPI<int>>();
 
             if (response!.EsCorrecto)
             {
-                return response.Mensaje!;
+                return response.Valor!;
             }
             else
             {
@@ -54,14 +54,14 @@ namespace ReservaBiblio.Client.Services
             }
         }
 
-        public async Task<string> Editar(ProfesoresDTO Profesor)
+        public async Task<int> Editar(ProfesoresDTO Profesor)
         {
-            var result = await _http.PutAsJsonAsync($"api/Profesores/Editar/{Profesor.Correo}", Profesor);
+            var result = await _http.PutAsJsonAsync($"api/Profesores/Editar/{Profesor.Id}", Profesor);
             var response = await result.Content.ReadFromJsonAsync<ResponseAPI<int>>();
 
             if (response!.EsCorrecto)
             {
-                return response.Mensaje!;
+                return response.Valor!;
             }
             else
             {
@@ -69,9 +69,9 @@ namespace ReservaBiblio.Client.Services
             }
         }
 
-        public async Task<bool> Eliminar(string Correo)
+        public async Task<bool> Eliminar(int Id)
         {
-            var result = await _http.DeleteAsync($"api/Profesores/Eliminar/{Correo}");
+            var result = await _http.DeleteAsync($"api/Profesores/Eliminar/{Id}");
             var response = await result.Content.ReadFromJsonAsync<ResponseAPI<int>>();
 
             if (response!.EsCorrecto)

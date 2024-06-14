@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ReservaBiblio.Shared\ReservaBiblio.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>

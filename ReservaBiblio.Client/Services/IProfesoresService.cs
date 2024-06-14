@@ -5,9 +5,9 @@ namespace ReservaBiblio.Client.Services
     public interface IProfesoresService
     {
         Task<List<ProfesoresDTO>> Lista();
-        Task<ProfesoresDTO> Buscar(string correo);
-        Task<string> Guardar(ProfesoresDTO Profesores);
-        Task<string> Editar(ProfesoresDTO Profesores);
-        Task<bool> Eliminar(string correo);
+        Task<ProfesoresDTO> Buscar(int id);
+        Task<int> Guardar(ProfesoresDTO Profesores);
+        Task<int> Editar(ProfesoresDTO Profesores);
+        Task<bool> Eliminar(int id);
     }
 }
