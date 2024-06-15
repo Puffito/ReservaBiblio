@@ -1,47 +1,166 @@
 ﻿@page "/"
 
+@using CurrieTechnologies.Razor.SweetAlert2;
+@using ReservaBiblio.Client.Services;
+@using ReservaBiblio.Client.Providers;
+@using ReservaBiblio.Shared;
+@using Microsoft.AspNetCore.Components.Authorization
+@inject HttpClient httpClient
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider autenticacionProvider
+@inject IProfesoresService profesorService;
+@inject NavigationManager navManager
+
+
+@inject SweetAlertService Swal;
+
 <PageTitle>Home</PageTitle>
 
 @layout Login;
 
 <div class="all">
     <div class="buttonsHeader">
-        <div class="button" id="loginButton" onclick="changeToLoginForm()">
+        <div class="button" @onclick="ChangeToLoginForm" class="@loginButtonClass">
             <h2>Login</h2>
         </div>
-        <div class="button buttonOn" id="registroButton" onclick="changeToRegisterForm()">
+        <div class="button" @onclick="ChangeToRegisterForm" class="@registerButtonClass">
             <h2>Rexistro</h2>
         </div>
     </div>
     <div class="body">
         <div class="formTitle">
-            <h1 id="formTitle">Rexístrese</h1>
+            <h1>@formTitle</h1>
+            <h2>@mensaje</h2>
         </div>
-        <form method="post" action="/register" id="registro">
-            <label for="nombre">Nome</label>
-            <input type="text" class="form-control" name="nombre">
-            <label for="departamento">Departamento</label>
-            <input type="text" class="form-control" name="departamento">
-            <label for="correo">Correo</label>
-            <input type="email" class="form-control" name="correo">
-            <label for="contrasena">Contrasinal</label>
-            <input type="password" class="form-control" name="contrasena">
-            <label for="confirmarContraseña">Confirmar contrasinal</label>
-            <input type="password" class="form-control" name="confirmarContraseña">
-            <div class="formSubmit">
-                <button type="button" name="submit" class="btn btn-background">Rexistrarse</button>
-            </div>
-        </form>
-        <form method="post" action="/login" id="login" class="oculto">
-            <label for="correo">Correo</label>
-            <input type="email" class="form-control" name="correo">
-            <label for="contrasena">Contrasinal</label>
-            <input type="password" class="form-control" name="contrasena">
-            <div class="formSubmit">
-                <button type="button" name="submit" class="btn btn-background">Iniciar sesión</button>
-            </div>
-        </form>
+        @if (isLoginForm)
+        {
+            <EditForm Model="@login" OnValidSubmit="IniciarSesion">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div>
+                    <label for="correo">Correo</label>
+                    <InputText id="correo" @bind-Value="login.Correo" />
+                </div>
+                <div>
+                    <label for="contrasena">Contrasinal</label>
+                    <InputText id="contrasena" @bind-Value="login.Contrasena" type="password" />
+                </div>
+                <div class="formSubmit">
+                    <button type="submit" class="btn btn-background">Iniciar sesión</button>
+                </div>
+            </EditForm>
+        }
+        else
+        {
+            <EditForm Model="@registerModel" OnValidSubmit="RegistrarProf">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div>
+                    <label for="nombre">Nome</label>
+                    <InputText id="nombre" @bind-Value="registerModel.Nombre" />
+                </div>
+                <div>
+                    <label for="departamento">Departamento</label>
+                    <InputText id="departamento" @bind-Value="registerModel.Departamento" />
+                </div>
+                <div>
+                    <label for="correo">Correo</label>
+                    <InputText id="correo" @bind-Value="registerModel.Correo" />
+                </div>
+                <div>
+                    <label for="contrasena">Contrasinal</label>
+                    <InputText id="contrasena" @bind-Value="registerModel.Contrasena" type="password" />
+                </div>
+                <div>
+                    <label for="confirmarContraseña">Confirmar contrasinal</label>
+                    <InputText id="confirmarContraseña" @bind-Value="confirmaContrasena" type="password" />
+                </div>
+                <div class="formSubmit">
+                    <button type="submit" class="btn btn-background">Rexistrarse</button>
+                </div>
+            </EditForm>
+        }
     </div>
 </div>
 
-<script src="/scripts/Login.js"></script>
+@code {
+    private bool isLoginForm = true;
+    private string formTitle = "Rexístrese";
+    private string mensaje = "";
+    private string loginButtonClass = "";
+    private string registerButtonClass = "buttonOn";
+    private string confirmaContrasena = "";
+
+    ProfesoresDTO login = new ProfesoresDTO();
+    ProfesoresDTO registerModel = new ProfesoresDTO();
+
+    protected override async Task OnInitializedAsync()
+    {
+        login = new ProfesoresDTO { Contrasena ="", Correo = "", Nombre ="", Departamento="" };
+    }
+
+    private async Task IniciarSesion()
+    {
+        ProfesoresDTO dbProfesor = await profesorService.BuscarCorreo(login.Correo);
+        if (dbProfesor != null && login.Contrasena == dbProfesor.Contrasena)
+        {
+            var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+            await autenticacionExt.ActualizarEstadoAutenticacion(login);
+
+            navManager.NavigateTo("/reservas");
+        }
+        else
+        {
+            mensaje = "Usuario o contraseña incorrectos";
+            login = new ProfesoresDTO { Contrasena = "", Correo = "", Nombre = "", Departamento = "" };
+        }
+    }
+
+    private async Task RegistrarProf()
+    {
+        ProfesoresDTO dbProfesor = await profesorService.BuscarCorreo(login.Correo);
+        if (dbProfesor == null && login.Contrasena == confirmaContrasena)
+        {
+            login.RangoAdministrador = "usuario";
+            var response = await profesorService.Guardar(login);
+
+            if (response != 0){
+                var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
+                await autenticacionExt.ActualizarEstadoAutenticacion(login);
+                mensaje = "Usuario registrado";
+                ChangeToLoginForm();
+            }
+        }
+        else
+        {
+            if(dbProfesor != null ){
+
+                mensaje = "Ya hay un usuario registrado con ese correo";
+                login = new ProfesoresDTO { Contrasena = "", Correo = "", Nombre = "", Departamento = "" };
+            }
+            else
+            {
+                mensaje = "Las contraseñas no coinciden";
+                login = new ProfesoresDTO { Contrasena = "", Correo = "", Nombre = "", Departamento = "" };
+            }
+        }
+    }
+
+    private void ChangeToLoginForm()
+    {
+        isLoginForm = true;
+        formTitle = "Inicie sesión";
+        loginButtonClass = "buttonOn";
+        registerButtonClass = "";
+    }
+
+    private void ChangeToRegisterForm()
+    {
+        isLoginForm = false;
+        formTitle = "Rexístrese";
+        loginButtonClass = "";
+        registerButtonClass = "buttonOn";
+    }
+
+    
+}

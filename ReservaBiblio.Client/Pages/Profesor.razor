@@ -9,6 +9,9 @@
 @inject IReservasEspaciosService reservaEspaciosService;
 @inject NavigationManager navegacion;
 
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize(Roles = "admin")];
+
 
 <h3>@titulo</h3>
 

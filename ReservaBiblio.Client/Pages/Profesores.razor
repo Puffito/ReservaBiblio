@@ -7,6 +7,9 @@
 @inject SweetAlertService Swal;
 @inject IProfesoresService profesorService;
 
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize(Roles = "admin")];
+
 <h3>Profesores</h3>
 
 <a class="btn btn-success btn-sm mb-3" href="home">Volver a casa</a>

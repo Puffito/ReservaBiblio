@@ -82,6 +82,39 @@ namespace ReservaBiblio.Server.Controllers
 
         }
 
+        [HttpGet]
+        [Route("BuscarCorreo/{Correo}")]
+        public async Task<IActionResult> BuscarCorreo(string Correo)
+        {
+            var responseApi = new ResponseAPI<ProfesoresDTO>();
+            var ProfesorDTO = new ProfesoresDTO();
+
+            try
+            {
+                var dbProfesor = await _dbContext.Profesores.FirstOrDefaultAsync(x => x.Correo == Correo);
+                if (dbProfesor != null)
+                {
+
+
+                    responseApi.EsCorrecto = true;
+                    responseApi.Valor = ProfesorDTO;
+                }
+                else
+                {
+                    responseApi.EsCorrecto = false;
+                    responseApi.Mensaje = "No encontrado";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                responseApi.EsCorrecto = false;
+                responseApi.Mensaje = ex.Message;
+            }
+            return Ok(responseApi);
+
+        }
+
         [HttpPost]
         [Route("Guardar")]
         public async Task<IActionResult> Guardar(ProfesoresDTO profesor)

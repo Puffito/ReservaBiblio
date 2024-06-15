@@ -26,6 +26,20 @@ namespace ReservaBiblio.Client.Services
             }
         }
 
+        public async Task<ProfesoresDTO> BuscarCorreo(string Correo)
+        {
+            var result = await _http.GetFromJsonAsync<ResponseAPI<ProfesoresDTO>>("api/Profesores/BuscarCorreo/{Correo}");
+
+            if (result!.EsCorrecto)
+            {
+                return result.Valor!;
+            }
+            else
+            {
+                throw new Exception(result.Mensaje);
+            }
+        }
+
         public async Task<List<ProfesoresDTO>> Lista()
         {
             var result = await _http.GetFromJsonAsync<ResponseAPI<List<ProfesoresDTO>>>("api/Profesores/Lista");
