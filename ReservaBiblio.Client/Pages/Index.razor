@@ -1,29 +1,27 @@
 ﻿@page "/"
 
-@using CurrieTechnologies.Razor.SweetAlert2;
-@using ReservaBiblio.Client.Services;
-@using ReservaBiblio.Client.Providers;
-@using ReservaBiblio.Shared;
+@using CurrieTechnologies.Razor.SweetAlert2
+@using ReservaBiblio.Client.Services
+@using ReservaBiblio.Client.Providers
+@using ReservaBiblio.Shared
 @using Microsoft.AspNetCore.Components.Authorization
 @inject HttpClient httpClient
 @inject NavigationManager Navigation
 @inject AuthenticationStateProvider autenticacionProvider
-@inject IProfesoresService profesorService;
+@inject IProfesoresService profesorService
 @inject NavigationManager navManager
-
-
-@inject SweetAlertService Swal;
+@inject SweetAlertService Swal
 
 <PageTitle>Home</PageTitle>
 
-@layout Login;
+@layout Login
 
 <div class="all">
     <div class="buttonsHeader">
-        <div class="button" @onclick="ChangeToLoginForm" class="@loginButtonClass">
+        <div @onclick="ChangeToLoginForm" class="button @(isLoginForm ? "buttonOn" : "")">
             <h2>Login</h2>
         </div>
-        <div class="button" @onclick="ChangeToRegisterForm" class="@registerButtonClass">
+        <div @onclick="ChangeToRegisterForm" class="button @(isLoginForm ? "" : "buttonOn")">
             <h2>Rexistro</h2>
         </div>
     </div>
@@ -87,8 +85,6 @@
     private bool isLoginForm = true;
     private string formTitle = "Rexístrese";
     private string mensaje = "";
-    private string loginButtonClass = "";
-    private string registerButtonClass = "buttonOn";
     private string confirmaContrasena = "";
 
     ProfesoresDTO login = new ProfesoresDTO();
@@ -96,7 +92,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        login = new ProfesoresDTO { Contrasena ="", Correo = "", Nombre ="", Departamento="" };
+        login = new ProfesoresDTO { Contrasena = "", Correo = "", Nombre = "", Departamento = "" };
     }
 
     private async Task IniciarSesion()
@@ -124,7 +120,8 @@
             login.RangoAdministrador = "usuario";
             var response = await profesorService.Guardar(login);
 
-            if (response != 0){
+            if (response != 0)
+            {
                 var autenticacionExt = (AutenticacionExtension)autenticacionProvider;
                 await autenticacionExt.ActualizarEstadoAutenticacion(login);
                 mensaje = "Usuario registrado";
@@ -133,8 +130,8 @@
         }
         else
         {
-            if(dbProfesor != null ){
-
+            if (dbProfesor != null)
+            {
                 mensaje = "Ya hay un usuario registrado con ese correo";
                 login = new ProfesoresDTO { Contrasena = "", Correo = "", Nombre = "", Departamento = "" };
             }
@@ -150,17 +147,11 @@
     {
         isLoginForm = true;
         formTitle = "Inicie sesión";
-        loginButtonClass = "buttonOn";
-        registerButtonClass = "";
     }
 
     private void ChangeToRegisterForm()
     {
         isLoginForm = false;
         formTitle = "Rexístrese";
-        loginButtonClass = "";
-        registerButtonClass = "buttonOn";
     }
-
-    
 }

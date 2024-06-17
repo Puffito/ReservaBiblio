@@ -4,26 +4,26 @@ using ReservaBiblio.Server.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ReservasDbContext>(opciones =>
+builder.Services.AddDbContext<ReservasDbContext>(options =>
 {
-    opciones.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("cadenaSQL"));
 });
 
-builder.Services.AddCors(opciones =>
+builder.Services.AddCors(options =>
 {
-    opciones.AddPolicy("nuevaPolitica", app =>
+    options.AddPolicy("nuevaPolitica", app =>
     {
         app.AllowAnyHeader();
         app.AllowAnyMethod();
         app.AllowAnyOrigin();
     });
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

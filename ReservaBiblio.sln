@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReservaBiblio.Server", "ReservaBiblio.Server\ReservaBiblio.Server.csproj", "{1C42F251-8FC6-4ABD-8FF8-39941590B20F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5A79846E-0FD2-4588-A50D-4A128FEFE009} = {5A79846E-0FD2-4588-A50D-4A128FEFE009}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReservaBiblio.Shared", "ReservaBiblio.Shared\ReservaBiblio.Shared.csproj", "{FCF25673-0512-46AA-BCFD-5333E7793A7D}"
 EndProject
